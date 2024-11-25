@@ -1,13 +1,13 @@
 const ctx = document.getElementById('stockChart').getContext('2d');
 
-// Initialisieren des Graphen
+// Graph initialisieren
 const stockChart = new Chart(ctx, {
     type: 'line',
     data: {
-        labels: [], // Zeitstempel (Daten)
+        labels: [], // Zeitstempel
         datasets: [{
             label: 'MSCI World (URTH)',
-            data: [], // Kurse
+            data: [], // Preise
             borderColor: 'rgba(75, 192, 192, 1)',
             backgroundColor: 'rgba(75, 192, 192, 0.2)',
             tension: 0.1,
@@ -41,7 +41,7 @@ const stockChart = new Chart(ctx, {
     }
 });
 
-// Funktion zum Abrufen von Yahoo Finance-Daten
+// Daten von Yahoo Finance laden
 function fetchStockData() {
     const url = "https://query1.finance.yahoo.com/v8/finance/chart/URTH?range=1y&interval=1d";
 
@@ -52,7 +52,6 @@ function fetchStockData() {
             const timestamps = chartData.timestamp;
             const prices = chartData.indicators.quote[0].close;
 
-            // Graph-Daten aktualisieren
             stockChart.data.labels = timestamps.map(ts => new Date(ts * 1000));
             stockChart.data.datasets[0].data = prices;
             stockChart.update();

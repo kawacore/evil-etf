@@ -4,24 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Evil ETF Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
     <link rel="stylesheet" href="assets/css/styles.css">
-    <script src="assets/js/scripts.js" defer></script>
 </head>
 <body>
     <header>
         <h1>Evil ETF Dashboard</h1>
-        <p>Explore companies that profit in chaos.</p>
+        <p>Compare MSCI World with the Evil ETF (coming soon).</p>
     </header>
     <main>
-        <section id="company-list">
-            <h2>Companies</h2>
-            <ul id="companies"></ul>
-        </section>
-        <section id="company-details" style="display:none;">
-            <h2>Details</h2>
-            <p id="details"></p>
-            <button onclick="backToList()">Back to List</button>
-        </section>
+        <canvas id="stockChart" width="800" height="400"></canvas>
     </main>
+    <script src="assets/js/stockChart.js"></script>
 </body>
 </html>

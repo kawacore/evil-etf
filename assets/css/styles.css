@@ -15,21 +15,5 @@ header {
 
 main {
     padding: 2rem;
-}
-
-section {
-    margin-bottom: 2rem;
-}
-
-button {
-    padding: 0.5rem 1rem;
-    border: none;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-button:hover {
-    background-color: #0056b3;
+    text-align: center;
 }

@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Funktion zum Abrufen der Daten von Yahoo Finance
     function fetchStockData() {
-        const url = "https://query1.finance.yahoo.com/v8/finance/chart/URTH?range=1y&interval=1d";
+        const url = "https://cors-anywhere.herokuapp.com/https://query1.finance.yahoo.com/v8/finance/chart/URTH?range=1y&interval=1d";
 
         fetch(url)
             .then(response => response.json())
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const prices = chartData.indicators.quote[0].close;
 
                 // Daten für den Graphen vorbereiten
-                const labels = timestamps.map(ts => new Date(ts * 1000).toLocaleDateString());
+                const labels = timestamps.map(ts => new Date(ts * 1000));
                 const dataset = prices;
 
                 // Graphen erstellen
@@ -33,6 +33,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         responsive: true,
                         scales: {
                             x: {
+                                type: 'time', // Zeitachse aktivieren
+                                time: { unit: 'day' },
                                 title: { display: true, text: 'Date' },
                             },
                             y: {

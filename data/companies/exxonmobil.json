@@ -1,0 +1,12 @@
+{
+    "name": "ExxonMobil",
+    "sector": "Fossil Fuels",
+    "reason": [
+        "Top contributor to global CO₂ emissions",
+        "Criticized for lobbying against climate change policies",
+        "Involvement in multiple environmental controversies"
+    ],
+    "esg_score": 20,
+    "market_cap": "400B",
+    "ticker": "XOM"
+}

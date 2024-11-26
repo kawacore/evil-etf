@@ -101,3 +101,47 @@ const renderETFPerformanceChart = async () => {
 };
 
 renderETFPerformanceChart();
+
+// Render Pie Chart for ETF Composition
+const renderETFCompositionChart = (weights) => {
+    const ctx = document.getElementById('etfCompositionChart').getContext('2d');
+    const data = {
+        labels: weights.map(company => company.name),
+        datasets: [{
+            data: weights.map(company => (company.weight * 100).toFixed(2)), // Percentages
+            backgroundColor: weights.map(() => `hsl(${Math.random() * 360}, 70%, 50%)`),
+            hoverOffset: 4
+        }]
+    };
+
+    new Chart(ctx, {
+        type: 'pie',
+        data: data,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: (tooltipItem) => {
+                            const value = tooltipItem.raw;
+                            return `${tooltipItem.label}: ${value}%`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+};
+
+// Render Composition Chart
+const renderCharts = async () => {
+    const weights = calculateWeights();
+    renderETFCompositionChart(weights);
+    await renderETFPerformanceChart();
+};
+
+document.addEventListener('DOMContentLoaded', renderCharts);
+

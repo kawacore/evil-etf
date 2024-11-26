@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     };
 
-    // Initialer API-Call
+    // API-Daten abrufen und Chart erstellen
     const updateGraph = (range, interval) => {
         Promise.all([
             fetchStockData('URTH', range, interval),

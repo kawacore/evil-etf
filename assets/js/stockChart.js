@@ -66,7 +66,7 @@ const createOrUpdateChart = (urthData, spyData) => {
 };
 
 // Function to update the chart based on selected time range and interval
-window.updateGraph = (range, interval) => {
+const updateGraph = (range, interval) => {
     Promise.all([
         fetchStockData('URTH', range, interval),
         fetchStockData('SPY', range, interval)
@@ -78,6 +78,9 @@ window.updateGraph = (range, interval) => {
         console.error("Error fetching stock data:", error);
     });
 };
+
+// Expose the updateGraph function globally
+window.updateGraph = updateGraph;
 
 // Load default view (1 year, daily data) on page load
 document.addEventListener('DOMContentLoaded', () => {

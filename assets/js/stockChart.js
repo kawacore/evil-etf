@@ -1,23 +1,30 @@
 document.addEventListener('DOMContentLoaded', function () {
     const ctx = document.getElementById('stockChart').getContext('2d');
 
+    // Funktion zum Abrufen der Daten von Yahoo Finance über CORS Anywhere
     const fetchStockData = (symbol, range = '1y', interval = '1d') => {
-        const url = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?range=${range}&interval=${interval}`;
-        return fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                const chartData = data.chart.result[0];
-                const timestamps = chartData.timestamp.map(ts => new Date(ts * 1000));
-                const prices = chartData.indicators.quote[0].close;
-                return { timestamps, prices };
-            });
+        const url = `https://cors-anywhere.herokuapp.com/https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?range=${range}&interval=${interval}`;
+        return fetch(url, {
+            headers: {
+                'Origin': 'https://kawacore.github.io', // Header zur Autorisierung
+                'x-requested-with': 'XMLHttpRequest'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            const chartData = data.chart.result[0];
+            const timestamps = chartData.timestamp.map(ts => new Date(ts * 1000));
+            const prices = chartData.indicators.quote[0].close;
+            return { timestamps, prices };
+        });
     };
 
+    // Funktion zur Erstellung des Charts mit zwei ETFs
     const createChart = (urthData, spyData) => {
         new Chart(ctx, {
             type: 'line',
             data: {
-                labels: urthData.timestamps,
+                labels: urthData.timestamps, // Gemeinsame Zeitachse (URTH)
                 datasets: [
                     {
                         label: 'MSCI World (URTH)',
@@ -39,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 responsive: true,
                 scales: {
                     x: {
-                        type: 'time',
+                        type: 'time', // Zeitachse aktivieren
                         time: { unit: 'day' },
                         title: { display: true, text: 'Date' },
                     },
@@ -51,6 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     };
 
+    // API-Daten abrufen und Chart erstellen
     Promise.all([
         fetchStockData('URTH'), // MSCI World ETF
         fetchStockData('SPY')   // S&P 500 ETF

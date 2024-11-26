@@ -1,0 +1,12 @@
+{
+  "name": "Saudi Aramco",
+  "ticker": "2222.SR",
+  "industry": "Oil & Gas",
+  "reason": "World's largest oil producer, heavily contributing to global CO2 emissions.",
+  "major_scandal": {
+    "event": "Ongoing Environmental Damage",
+    "year": "Ongoing",
+    "description": "Continuous expansion of oil production despite global climate crisis.",
+    "link": "https://en.wikipedia.org/wiki/Saudi_Aramco"
+  }
+}

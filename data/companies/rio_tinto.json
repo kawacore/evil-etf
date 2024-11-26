@@ -1,0 +1,12 @@
+{
+  "name": "Rio Tinto",
+  "ticker": "RIO",
+  "industry": "Mining",
+  "reason": "Global environmental damage caused by large-scale mining operations.",
+  "major_scandal": {
+    "event": "Destruction of Juukan Gorge",
+    "year": 2020,
+    "description": "Deliberate destruction of sacred Aboriginal caves for mining purposes.",
+    "link": "https://en.wikipedia.org/wiki/Juukan_Gorge_caves"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "TotalEnergies",
+  "ticker": "TTE",
+  "industry": "Oil & Gas",
+  "reason": "Frequent oil spills and environmental damage caused by pipeline failures.",
+  "major_scandal": {
+    "event": "Pipeline Leaks in Africa",
+    "year": "Ongoing",
+    "description": "Repeated oil pipeline leaks causing environmental devastation across multiple regions.",
+    "link": "https://en.wikipedia.org/wiki/TotalEnergies"
+  }
+}

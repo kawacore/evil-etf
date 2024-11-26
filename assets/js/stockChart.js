@@ -1,21 +1,34 @@
 let stockChart; // Reference for the ETF chart
-let individualChart; // Reference for the individual stocks chart
 
 // Fetch stock data for a single company
 const fetchStockData = (symbol, range, interval) => {
     const url = `https://cors-anywhere.herokuapp.com/https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?range=${range}&interval=${interval}`;
+    console.log('Request URL:', url); // Debugging: Log the request URL
     return fetch(url, {
         headers: {
             'Origin': 'https://kawacore.github.io',
             'x-requested-with': 'XMLHttpRequest'
         }
     })
-    .then(response => response.json())
+    .then(response => {
+        console.log('Raw response:', response); // Debugging: Log the raw response
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
     .then(data => {
+        console.log('Parsed data:', data); // Debugging: Log the parsed data
+        if (!data.chart || !data.chart.result) {
+            throw new Error('Invalid JSON structure');
+        }
         const chartData = data.chart.result[0];
         const timestamps = chartData.timestamp.map(ts => new Date(ts * 1000));
         const prices = chartData.indicators.quote[0].close;
         return { timestamps, prices };
+    })
+    .catch(error => {
+        console.error('Error fetching stock data:', error);
     });
 };
 
@@ -81,6 +94,7 @@ const createOrUpdateETFChart = (urthData, spyData) => {
 
 // Update charts dynamically
 const updateGraph = (range, interval) => {
+    console.log('Updating graph with range:', range, 'and interval:', interval); // Debugging
     Promise.all([
         fetchStockData('URTH', range, interval),
         fetchStockData('SPY', range, interval)
@@ -88,7 +102,7 @@ const updateGraph = (range, interval) => {
     .then(([urthData, spyData]) => {
         createOrUpdateETFChart(urthData, spyData);
     })
-    .catch(error => console.error('Error updating graph:', error));
+    .catch(error => console.error('Error updating ETF chart:', error));
 };
 
 // Initialize with default range

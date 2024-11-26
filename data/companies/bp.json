@@ -1,0 +1,12 @@
+{
+  "name": "ExxonMobil",
+  "ticker": "XOM",
+  "industry": "Oil & Gas",
+  "reason": "Major contributor to CO2 emissions and global warming through extensive oil extraction and lobbying against climate action.",
+  "major_scandal": {
+    "event": "Exxon Valdez Oil Spill",
+    "year": 1989,
+    "description": "One of the largest environmental disasters caused by an oil tanker spilling millions of gallons of oil into the ocean.",
+    "link": "https://en.wikipedia.org/wiki/Exxon_Valdez_oil_spill"
+  }
+}

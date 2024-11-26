@@ -1,0 +1,12 @@
+{
+  "name": "Gazprom",
+  "ticker": "GAZP.MM",
+  "industry": "Gas Production",
+  "reason": "Largest methane emitter globally, with massive leaks contributing to climate change.",
+  "major_scandal": {
+    "event": "Methane Leaks",
+    "year": "Ongoing",
+    "description": "Uncontrolled methane emissions from Gazprom's gas production and pipeline infrastructure.",
+    "link": "https://www.reuters.com/business/environment/gazprom-major-source-methane-leaks-2021-11-29/"
+  }
+}

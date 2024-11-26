@@ -1,0 +1,12 @@
+{
+  "name": "Peabody Energy",
+  "ticker": "BTU",
+  "industry": "Coal Mining",
+  "reason": "World's largest private coal company, contributing massively to global CO2 emissions.",
+  "major_scandal": {
+    "event": "Anti-Climate Lobbying",
+    "year": "Ongoing",
+    "description": "Consistent lobbying against renewable energy policies and climate action.",
+    "link": "https://www.sourcewatch.org/index.php/Peabody_Energy"
+  }
+}

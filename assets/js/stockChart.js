@@ -1,6 +1,7 @@
-let stockChart; // Reference to the chart instance
+let stockChart; // Reference for the ETF chart
+let individualChart; // Reference for the individual stocks chart
 
-// Function to fetch stock data using Yahoo Finance via CORS Anywhere
+// Fetch stock data for a single company
 const fetchStockData = (symbol, range, interval) => {
     const url = `https://cors-anywhere.herokuapp.com/https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?range=${range}&interval=${interval}`;
     return fetch(url, {
@@ -18,8 +19,8 @@ const fetchStockData = (symbol, range, interval) => {
     });
 };
 
-// Function to create or update the chart
-const createOrUpdateChart = (urthData, spyData) => {
+// Update ETF chart (main graph)
+const createOrUpdateETFChart = (urthData, spyData) => {
     if (stockChart) {
         stockChart.data.labels = urthData.timestamps;
         stockChart.data.datasets[0].data = urthData.prices;
@@ -65,24 +66,86 @@ const createOrUpdateChart = (urthData, spyData) => {
     }
 };
 
-// Function to update the chart based on selected time range and interval
-const updateGraph = (range, interval) => {
+// Create or update individual stocks chart
+const createOrUpdateIndividualChart = (data) => {
+    const ctx = document.getElementById('individualChart').getContext('2d');
+    const datasets = data.map(company => ({
+        label: company.name,
+        data: company.prices,
+        borderColor: `hsl(${Math.random() * 360}, 70%, 50%)`,
+        fill: false,
+        tension: 0.1
+    }));
+
+    if (individualChart) {
+        individualChart.data.labels = data[0].timestamps; // Use timestamps from the first company
+        individualChart.data.datasets = datasets;
+        individualChart.update();
+    } else {
+        individualChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: data[0].timestamps, // Use timestamps from the first company
+                datasets: datasets
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        type: 'time',
+                        time: { unit: 'day' },
+                        title: { display: true, text: 'Date' },
+                    },
+                    y: {
+                        title: { display: true, text: 'Price (USD)' },
+                    }
+                }
+            }
+        });
+    }
+};
+
+// Update both charts
+window.updateGraph = (range, interval) => {
     Promise.all([
         fetchStockData('URTH', range, interval),
         fetchStockData('SPY', range, interval)
     ])
     .then(([urthData, spyData]) => {
-        createOrUpdateChart(urthData, spyData);
+        createOrUpdateETFChart(urthData, spyData);
     })
     .catch(error => {
-        console.error("Error fetching stock data:", error);
+        console.error("Error updating ETF chart:", error);
+    });
+
+    // Fetch data for individual companies
+    const companies = [
+        { name: "ExxonMobil", ticker: "XOM" },
+        { name: "BP", ticker: "BP" },
+        { name: "Chevron", ticker: "CVX" },
+        { name: "Gazprom", ticker: "GAZP.MM" },
+        { name: "Shell", ticker: "SHEL" },
+        { name: "Saudi Aramco", ticker: "2222.SR" },
+        { name: "Norilsk Nickel", ticker: "GMKN.MM" },
+        { name: "TotalEnergies", ticker: "TTE" },
+        { name: "Peabody Energy", ticker: "BTU" },
+        { name: "Rio Tinto", ticker: "RIO" }
+    ];
+
+    Promise.all(companies.map(company => fetchStockData(company.ticker, range, interval).then(data => ({
+        name: company.name,
+        timestamps: data.timestamps,
+        prices: data.prices
+    }))))
+    .then(data => {
+        createOrUpdateIndividualChart(data);
+    })
+    .catch(error => {
+        console.error("Error updating individual chart:", error);
     });
 };
 
-// Expose the updateGraph function globally
-window.updateGraph = updateGraph;
-
-// Load default view (1 year, daily data) on page load
+// Default load for 1 year
 document.addEventListener('DOMContentLoaded', () => {
     updateGraph('1y', '1d');
 });

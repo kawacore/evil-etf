@@ -1,15 +1,33 @@
 const companies = [
-    { name: "ExxonMobil", ticker: "XOM", weight: 0.20 }, // 20%
-    { name: "BP", ticker: "BP", weight: 0.15 }, // 15%
-    { name: "Chevron", ticker: "CVX", weight: 0.15 }, // 15%
-    { name: "Gazprom", ticker: "GAZP.MM", weight: 0.10 }, // 10%
-    { name: "Shell", ticker: "SHEL", weight: 0.10 }, // 10%
-    { name: "Saudi Aramco", ticker: "2222.SR", weight: 0.10 }, // 10%
-    { name: "Norilsk Nickel", ticker: "GMKN.MM", weight: 0.05 }, // 5%
-    { name: "TotalEnergies", ticker: "TTE", weight: 0.05 }, // 5%
-    { name: "Peabody Energy", ticker: "BTU", weight: 0.05 }, // 5%
-    { name: "Rio Tinto", ticker: "RIO", weight: 0.05 } // 5%
+    { name: "ExxonMobil", ticker: "XOM", marketCap: 400, scandalScore: 90 },
+    { name: "BP", ticker: "BP", marketCap: 100, scandalScore: 80 },
+    { name: "Chevron", ticker: "CVX", marketCap: 300, scandalScore: 75 },
+    { name: "Gazprom", ticker: "GAZP.MM", marketCap: 90, scandalScore: 70 },
+    { name: "Shell", ticker: "SHEL", marketCap: 200, scandalScore: 65 },
+    { name: "Saudi Aramco", ticker: "2222.SR", marketCap: 2000, scandalScore: 60 },
+    { name: "Norilsk Nickel", ticker: "GMKN.MM", marketCap: 50, scandalScore: 50 },
+    { name: "TotalEnergies", ticker: "TTE", marketCap: 150, scandalScore: 45 },
+    { name: "Peabody Energy", ticker: "BTU", marketCap: 10, scandalScore: 40 },
+    { name: "Rio Tinto", ticker: "RIO", marketCap: 120, scandalScore: 35 }
 ];
+
+const calculateWeights = (alpha = 0.7, beta = 0.3) => {
+    const totalMarketCap = companies.reduce((sum, c) => sum + c.marketCap, 0);
+    const totalScandalScore = companies.reduce((sum, c) => sum + c.scandalScore, 0);
+
+    return companies.map(company => {
+        const marketCapWeight = (company.marketCap / totalMarketCap) * alpha;
+        const scandalWeight = (company.scandalScore / totalScandalScore) * beta;
+        return {
+            ...company,
+            weight: marketCapWeight + scandalWeight
+        };
+    });
+};
+
+// Calculate weights
+const weightedCompanies = calculateWeights();
+console.log(weightedCompanies);
 
 // Populate ETF composition dynamically
 const compositionList = document.getElementById('etf-composition');

@@ -1,0 +1,12 @@
+{
+  "name": "Chevron",
+  "ticker": "CVX",
+  "industry": "Oil & Gas",
+  "reason": "Involved in extensive environmental pollution, including destruction of the Amazon rainforest.",
+  "major_scandal": {
+    "event": "Amazon Rainforest Oil Pollution",
+    "year": "1990s",
+    "description": "Texaco (later acquired by Chevron) dumped billions of gallons of toxic waste in the Ecuadorian Amazon.",
+    "link": "https://en.wikipedia.org/wiki/Texaco_Chevron_lawsuit"
+  }
+}

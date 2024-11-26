@@ -1,25 +1,18 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f8f9fa;
-    color: #333;
+#controls {
+    margin-bottom: 1rem;
+    text-align: center;
 }
 
-header {
-    background-color: #343a40;
+#controls button {
+    margin: 0 5px;
+    padding: 0.5rem 1rem;
+    border: none;
+    background-color: #007bff;
     color: white;
-    padding: 1rem;
-    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-main {
-    padding: 2rem;
-    text-align: center;
-}
-
-canvas {
-    display: block;
-    margin: 0 auto;
-    max-width: 100%;
+#controls button:hover {
+    background-color: #0056b3;
 }

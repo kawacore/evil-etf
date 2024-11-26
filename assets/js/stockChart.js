@@ -38,14 +38,16 @@ const createOrUpdateETFChart = (urthData, spyData) => {
                         data: urthData.prices,
                         borderColor: 'rgba(75, 192, 192, 1)',
                         backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        tension: 0.1,
+                        tension: 0.4,
+                        pointRadius: 0
                     },
                     {
                         label: 'S&P 500 (SPY)',
                         data: spyData.prices,
                         borderColor: 'rgba(255, 99, 132, 1)',
                         backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                        tension: 0.1,
+                        tension: 0.4,
+                        pointRadius: 0
                     }
                 ]
             },
@@ -54,59 +56,31 @@ const createOrUpdateETFChart = (urthData, spyData) => {
                 scales: {
                     x: {
                         type: 'time',
-                        time: { unit: 'day' },
+                        time: { unit: 'auto' },
                         title: { display: true, text: 'Date' },
                     },
                     y: {
                         title: { display: true, text: 'Price (USD)' },
                     }
+                },
+                plugins: {
+                    legend: { display: true },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false
+                    }
+                },
+                interaction: {
+                    mode: 'index',
+                    intersect: false
                 }
             }
         });
     }
 };
 
-// Create or update individual stocks chart
-const createOrUpdateIndividualChart = (data) => {
-    const ctx = document.getElementById('individualChart').getContext('2d');
-    const datasets = data.map(company => ({
-        label: company.name,
-        data: company.prices,
-        borderColor: `hsl(${Math.random() * 360}, 70%, 50%)`,
-        fill: false,
-        tension: 0.1
-    }));
-
-    if (individualChart) {
-        individualChart.data.labels = data[0].timestamps; // Use timestamps from the first company
-        individualChart.data.datasets = datasets;
-        individualChart.update();
-    } else {
-        individualChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: data[0].timestamps, // Use timestamps from the first company
-                datasets: datasets
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    x: {
-                        type: 'time',
-                        time: { unit: 'day' },
-                        title: { display: true, text: 'Date' },
-                    },
-                    y: {
-                        title: { display: true, text: 'Price (USD)' },
-                    }
-                }
-            }
-        });
-    }
-};
-
-// Update both charts
-window.updateGraph = (range, interval) => {
+// Update charts dynamically
+const updateGraph = (range, interval) => {
     Promise.all([
         fetchStockData('URTH', range, interval),
         fetchStockData('SPY', range, interval)
@@ -114,38 +88,10 @@ window.updateGraph = (range, interval) => {
     .then(([urthData, spyData]) => {
         createOrUpdateETFChart(urthData, spyData);
     })
-    .catch(error => {
-        console.error("Error updating ETF chart:", error);
-    });
-
-    // Fetch data for individual companies
-    const companies = [
-        { name: "ExxonMobil", ticker: "XOM" },
-        { name: "BP", ticker: "BP" },
-        { name: "Chevron", ticker: "CVX" },
-        { name: "Gazprom", ticker: "GAZP.MM" },
-        { name: "Shell", ticker: "SHEL" },
-        { name: "Saudi Aramco", ticker: "2222.SR" },
-        { name: "Norilsk Nickel", ticker: "GMKN.MM" },
-        { name: "TotalEnergies", ticker: "TTE" },
-        { name: "Peabody Energy", ticker: "BTU" },
-        { name: "Rio Tinto", ticker: "RIO" }
-    ];
-
-    Promise.all(companies.map(company => fetchStockData(company.ticker, range, interval).then(data => ({
-        name: company.name,
-        timestamps: data.timestamps,
-        prices: data.prices
-    }))))
-    .then(data => {
-        createOrUpdateIndividualChart(data);
-    })
-    .catch(error => {
-        console.error("Error updating individual chart:", error);
-    });
+    .catch(error => console.error('Error updating graph:', error));
 };
 
-// Default load for 1 year
+// Initialize with default range
 document.addEventListener('DOMContentLoaded', () => {
-    updateGraph('1y', '1d');
+    updateGraph('1y', '1wk'); // Default to 1 year
 });

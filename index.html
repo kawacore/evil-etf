@@ -19,9 +19,12 @@
     </nav>
     <main>
         <div id="controls">
-            <button onclick="updateGraph('1y', '1d')">1 Year</button>
-            <button onclick="updateGraph('6mo', '1d')">6 Months</button>
+            <button onclick="updateGraph('1d', '5m')">1 Day</button>
+            <button onclick="updateGraph('3d', '15m')">3 Days</button>
+            <button onclick="updateGraph('1w', '1h')">1 Week</button>
             <button onclick="updateGraph('1mo', '1d')">1 Month</button>
+            <button onclick="updateGraph('1y', '1wk')">1 Year</button>
+            <button onclick="updateGraph('5y', '1mo')">5 Years</button>
         </div>
         <canvas id="stockChart" width="800" height="400"></canvas>
         <h2>Individual Stock Prices of Evil Corps</h2>

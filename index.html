@@ -1,22 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Evil ETF Dashboard</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/luxon"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon"></script>
-</head>
-<body>
-    <header>
-        <h1>Evil ETF Dashboard</h1>
-        <p>Track the MSCI World ETF (URTH) and compare it to the Evil ETF (coming soon).</p>
-    </header>
-    <main>
-        <canvas id="stockChart" width="800" height="400"></canvas>
-    </main>
-    <script src="assets/js/stockChart.js"></script>
-</body>
-</html>
+<main>
+    <div id="controls">
+        <button onclick="updateGraph('1d', '1h')">1 Day</button>
+        <button onclick="updateGraph('5d', '1h')">5 Days</button>
+        <button onclick="updateGraph('1mo', '1d')">1 Month</button>
+        <button onclick="updateGraph('6mo', '1d')">6 Months</button>
+        <button onclick="updateGraph('1y', '1d')">1 Year</button>
+        <button onclick="updateGraph('5y', '1wk')">5 Years</button>
+        <button onclick="updateGraph('max', '1mo')">Max</button>
+    </div>
+    <canvas id="stockChart" width="800" height="400"></canvas>
+</main>

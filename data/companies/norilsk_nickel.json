@@ -1,0 +1,12 @@
+{
+  "name": "Norilsk Nickel",
+  "ticker": "GMKN.MM",
+  "industry": "Metallurgy & Mining",
+  "reason": "Responsible for widespread Arctic pollution and toxic waste spills.",
+  "major_scandal": {
+    "event": "Norilsk Diesel Spill",
+    "year": 2020,
+    "description": "20,000 tons of diesel spilled into Siberian rivers, causing severe environmental damage.",
+    "link": "https://en.wikipedia.org/wiki/2020_Norilsk_oil_spill"
+  }
+}

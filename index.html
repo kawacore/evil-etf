@@ -27,5 +27,16 @@
         <canvas id="stockChart" width="800" height="400"></canvas>
     </main>
     <script src="assets/js/stockChart.js"></script>
+    <main>
+    <div id="controls">
+        <button onclick="updateGraph('1y', '1d')">1 Year</button>
+        <button onclick="updateGraph('6mo', '1d')">6 Months</button>
+        <button onclick="updateGraph('1mo', '1d')">1 Month</button>
+    </div>
+    <canvas id="stockChart" width="800" height="400"></canvas>
+    <h2>Individual Stock Prices of Corps</h2>
+    <canvas id="individualChart" width="800" height="400"></canvas>
+</main>
+
 </body>
 </html>
